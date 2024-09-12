@@ -1,5 +1,26 @@
 <script setup>
+import { ref } from 'vue';
 
+const recipeName = ref('');
+const ingredients = ref('');
+const directions = ref('');
+const generatedRecipe = ref(null);
+
+const generateRecipe = () => {
+  // Check if the recipe name is provided
+  if (!recipeName.value.trim()) {
+    // Handle the case where the recipe name is missing
+    alert('Please enter a recipe name.');
+    return;
+  }
+
+  // Generate the recipe object
+  generatedRecipe.value = {
+    name: recipeName.value,
+    ingredients: ingredients.value,
+    directions: directions.value,
+  };
+};
 </script>
 
 <template>
@@ -30,6 +51,17 @@
           <button type="submit">Generate Recipe</button>
         </form>
 
+      </section>
+
+      <section id="recipe-output">
+        <h2>Your Recipe</h2>
+        <div v-if="generatedRecipe">
+          <h3>{{ generatedRecipe.name }}</h3>
+          <p><strong>Ingredients:</strong></p>
+          <p>{{ generatedRecipe.ingredients }}</p>
+          <p><strong>Directions:</strong></p>
+          <p>{{ generatedRecipe.directions }}</p>
+        </div>
       </section>
     </main>
  </div>
