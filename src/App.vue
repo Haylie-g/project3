@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 
 const recipeName = ref('');
 const ingredients = ref('');
@@ -20,6 +20,14 @@ const generateRecipe = () => {
     ingredients: ingredients.value,
     directions: directions.value,
   };
+};
+
+const deleteRecipe = () => {
+  // Clear the recipe data
+  generatedRecipe.value = null;
+  recipeName.value = '';
+  ingredients.value = '';
+  directions.value = '';
 };
 </script>
 
@@ -61,6 +69,7 @@ const generateRecipe = () => {
           <p>{{ generatedRecipe.ingredients }}</p>
           <p><strong>Directions:</strong></p>
           <p>{{ generatedRecipe.directions }}</p>
+          <button @click="deleteRecipe">Delete Recipe</button>
         </div>
       </section>
     </main>
